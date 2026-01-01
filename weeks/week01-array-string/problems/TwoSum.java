@@ -5,12 +5,23 @@ public class TwoSum {
      * Two Sum
      * LeetCode 1
      * 
-     * TODO: Implement the algorithm
      */
     public int[] twoSum(int[] nums, int target) {
-        // TODO: Your implementation here
-        
-        return new int[]{-1, -1};
+        int[] res = new int[2];
+        if (nums == null || nums.length == 0) {
+            return res;
+        }
+        Map<Integer, Integer> cache = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            int currNum = nums[i];
+            if (cache.containsKey(target - currNum)) {
+                res[0] = cache.get(target - currNum);
+                res[1] = i;
+                return res;
+            }
+            cache.put(currNum, i);
+        }
+        return res;
     }
 
     public static void main(String[] args) {
