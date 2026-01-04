@@ -5,11 +5,16 @@ public class ContainsDuplicate {
      * Contains Duplicate
      * LeetCode 217
      *
-     * TODO: Implement the algorithm
      */
     public boolean containsDuplicate(int[] nums) {
-        // TODO: Your implementation here
-        return false;
+        if (nums == null || nums.length == 0) {
+            return false;
+        }
+        Set<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            set.add(num);
+        }
+        return set.size() < nums.length;
     }
 
     public static void main(String[] args) {

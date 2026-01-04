@@ -3,11 +3,19 @@ public class BestTimeToBuyAndSellStock {
      * Best Time to Buy and Sell Stock
      * LeetCode 121
      *
-     * TODO: Implement the algorithm
      */
     public int maxProfit(int[] prices) {
-        // TODO: Your implementation here
-        return 0;
+        if (prices == null || prices.length == 0) {
+            return 0;
+        }
+        // 遍历一遍，记录最小价格和最大利润
+        int maxProfit = 0;
+        int minPrice = prices[0];
+        for (int price : prices) {
+            minPrice = Math.min(minPrice, price);
+            maxProfit = Math.max(maxProfit, price - minPrice);
+        }
+        return maxProfit;
     }
 
     public static void main(String[] args) {
