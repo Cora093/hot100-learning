@@ -5,11 +5,54 @@ public class GroupAnagrams {
      * Group Anagrams
      * LeetCode 49
      *
-     * TODO: Implement the algorithm
      */
     public List<List<String>> groupAnagrams(String[] strs) {
-        // TODO: Your implementation here
-        return new ArrayList<>();
+        List<List<String>> res = new ArrayList<>();
+
+        if (strs == null || strs.length == 0) {
+            return res;
+        }
+        if (strs.length == 1) {
+            res.add(Collections.singletonList(strs[0]));
+            return res;
+        }
+
+        int emptyCount = 0;
+
+        Map<String, List<String>> map = new HashMap<>();
+        for (String str : strs) {
+            if (str.isEmpty()) {
+                emptyCount++;
+                continue;
+            }
+
+            int[] count = new int[26];
+            for (char c : str.toCharArray()) {
+                count[c - 'a']++;
+            }
+
+            StringBuilder key = new StringBuilder();
+            for (int i = 0; i < count.length; i++) {
+                key.append((char) ('a' + i) + count[i]);
+            }
+
+            List<String> value = map.getOrDefault(key.toString(), new ArrayList<>());
+            value.add(str);
+
+            map.put(key.toString(), value);
+        }
+
+        if (emptyCount > 0) {
+            List<String> list = new ArrayList<>();
+            for (int i = 0; i < emptyCount; i++) {
+                list.add("");
+            }
+            res.add(list);
+        }
+
+        map.forEach((key, value) -> res.add(value));
+
+        return res;
     }
 
     public static void main(String[] args) {
