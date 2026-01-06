@@ -5,22 +5,27 @@ public class LongestSubstring {
      * Longest Substring Without Repeating Characters
      * LeetCode 3
      *
-     * TODO: Implement algorithm
      */
     public int lengthOfLongestSubstring(String s) {
-        // TODO: Your implementation here
+        if (s == null || s.isEmpty()) {
+            return 0;
+        }
 
-        return 0;
-    }
+        int res = 1;
+        Map<Character, Integer> map = new HashMap<>();
+        for (int left = 0, right = 0; right < s.length(); right++) {
+            char curr = s.charAt(right);
 
-    /**
-     * HashMap Version
-     * TODO: Implement algorithm
-     */
-    public int lengthOfLongestSubstringMap(String s) {
-        // TODO: Your implementation here
+            // 当前字符重复 重置左指针
+            if (map.containsKey(curr)) {
+                left = Math.max(map.get(curr) + 1, left);
+            }
 
-        return 0;
+            map.put(curr, right);
+
+            res = Math.max(res, right - left + 1);
+        }
+        return res;
     }
 
     public static void main(String[] args) {
@@ -94,16 +99,6 @@ public class LongestSubstring {
         System.out.println("Expected: " + expected7);
         System.out.println("Actual: " + result7);
         System.out.println("Result: " + (result7 == expected7 ? "PASS" : "FAIL"));
-        System.out.println();
-
-        System.out.println("=== Test Case 8: HashMap version ===");
-        String s8 = "abcabcbb";
-        int result8 = solution.lengthOfLongestSubstringMap(s8);
-        int expected8 = 3;
-        System.out.println("Input: s = \"" + s8 + "\"");
-        System.out.println("Expected: " + expected8);
-        System.out.println("Actual: " + result8);
-        System.out.println("Result: " + (result8 == expected8 ? "PASS" : "FAIL"));
         System.out.println();
 
         System.out.println("=== All tests completed ===");
