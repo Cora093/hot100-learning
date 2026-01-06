@@ -5,11 +5,35 @@ public class ProductOfArrayExceptSelf {
      * Product of Array Except Self
      * LeetCode 238
      *
-     * TODO: Implement the algorithm
      */
     public int[] productExceptSelf(int[] nums) {
-        // TODO: Your implementation here
-        return new int[0];
+        if (nums == null || nums.length == 0) {
+            return new int[0];
+        }
+
+        // 从左遍历再从右遍历
+        int len = nums.length;
+        int[] lCache = new int[len];
+        lCache[0] = 1;
+        int[] rCache = new int[len];
+        rCache[len - 1] = 1;
+
+        for (int i = 1; i < len; i++) {
+            lCache[i] = lCache[i - 1] * nums[i - 1];
+        }
+        for (int i = len - 2; i >= 0; i--) {
+            rCache[i] = rCache[i + 1] * nums[i + 1];
+        }
+
+        int[] res = new int[len];
+        res[0] = rCache[0];
+        res[len - 1] = lCache[len - 1];
+        for (int i = 1; i < len - 1; i++) {
+            // 计算公式
+            res[i] = lCache[i] * rCache[i];
+        }
+
+        return res;
     }
 
     public static void main(String[] args) {
